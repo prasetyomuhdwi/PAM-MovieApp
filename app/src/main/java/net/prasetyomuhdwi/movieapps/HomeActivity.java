@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-
+        bottomNavigation.setSelectedItemId(R.id.nav_home);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
