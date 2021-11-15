@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MovieApps</string>
+    <!-- TODO: Add Multiple Lang and replace hardcode text  -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
