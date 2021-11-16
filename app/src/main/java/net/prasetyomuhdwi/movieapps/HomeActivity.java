@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,7 +35,6 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         selectedFragment = new HomeFragment();
-//                        bottomNavigation.getLabelVisibilityMode();
                         break;
                     case R.id.nav_search:
                         selectedFragment= new SearchFragment();

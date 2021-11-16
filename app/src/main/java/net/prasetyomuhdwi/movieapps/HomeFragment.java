@@ -1,64 +1,79 @@
 package net.prasetyomuhdwi.movieapps;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DirectoryMovieFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private RecyclerView recyclerView;
+    private ArrayList<MoviesData> moviesArrayList;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
+    ) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.recyclerview_home);
+
+        String url = "https://api.themoviedb.org/3/movie/550?api_key=434f297aa1bc200c813ea38732f514dd";
+
+        String jsonData = "{\"page\":1,\"total_results\":10000,\"total_pages\":500,\"results\":"+
+          "[{\"popularity\":2234.266,\"vote_count\":182,\"video\":false,\"poster_path\":\""+
+          "/9HT9982bzgN5on1sLRmc1GMn6ZC.jpg\",\"id\":671039,\"adult\":false,\"backdrop_path\""+
+          ":\"/gnf4Cb2rms69QbCnGFJyqwBWsxv.jpg\",\"original_language\":\"fr\",\"original_title\""+
+          ":\"Bronx\",\"genre_ids\":[53,28,18,80],\"title\":\"Rogue City\",\"vote_average\""+
+          ":6.1,\"overview\":\"Caught in the crosshairs of police corruption and Marseille’s"+
+          " warring gangs, a loyal cop must protect his squad by taking matters into his own hands."+
+          "\",\"release_date\":\"2020-10-30\"}]}";
+
+        setData(jsonData);
+
+        HomeAdapter adapter = new HomeAdapter(moviesArrayList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    void setData(String jsonString){
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray result = jsonObject.getJSONArray("results");
+            moviesArrayList = new ArrayList<>();
+
+            for(int i=0; i<result.length(); i++){
+                JSONObject moviesObj = result.getJSONObject(i);
+//                Log.d("Check This DATA", String.valueOf(moviesObj));
+                MoviesData movies = new MoviesData(
+                        moviesObj.getString("title"),
+                        moviesObj.getString("overview"),
+                        moviesObj.getString("release_date"),
+                        moviesObj.getString("poster_path"),
+                        moviesObj.getString("backdrop_path"),
+                        moviesObj.getDouble("vote_average"));
+                moviesArrayList.add(movies);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
 }
