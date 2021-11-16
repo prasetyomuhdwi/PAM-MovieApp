@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +25,9 @@ public class HomeActivity extends AppCompatActivity {
         // hide ActionBar
         getSupportActionBar().hide();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+        Fragment fragment = HomeFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container,fragment,"home_fragment").commit();
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setSelectedItemId(R.id.nav_home);
@@ -31,20 +35,25 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
+                String tag = "";
 
                 switch (item.getItemId()){
-                    case R.id.nav_home:
-                        selectedFragment = new HomeFragment();
-                        break;
                     case R.id.nav_search:
                         selectedFragment= new SearchFragment();
+                        tag = "search_fragment";
                         break;
                     case R.id.nav_setting:
                         selectedFragment = new SettingFragment();
+                        tag = "setting_fragment";
+                        break;
+                    default:
+                        selectedFragment = new HomeFragment();
+                        tag = "home_fragment";
                         break;
                 }
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+                Log.d("CHeck This Out", "onNavigationItemSelected: "+tag);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,selectedFragment,tag).commit();
 
                 return true;
             }

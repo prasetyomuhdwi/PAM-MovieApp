@@ -1,5 +1,6 @@
 package net.prasetyomuhdwi.movieapps;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,11 +23,12 @@ import okhttp3.OkHttpClient;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
 
-    Context context;
-    private final ArrayList<MoviesData> dataList;
+    private final ArrayList<MoviesData> mDataList;
+    private ItemClickListener mClickListener;
 
-    public HomeAdapter(ArrayList<MoviesData> dataList) {
-        this.dataList = dataList;
+    public HomeAdapter(ArrayList<MoviesData> dataList,ItemClickListener clickListener) {
+        this.mDataList = dataList;
+        this.mClickListener = clickListener;
     }
 
     @NonNull
@@ -38,25 +40,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.MovieHolder holder, int position) {
-        String url = "https://themoviedb.org/t/p/w500/"+dataList.get(position).getPoster_path();
+    public void onBindViewHolder(@NonNull HomeAdapter.MovieHolder holder, @SuppressLint("RecyclerView") int position) {
+        String url = mDataList.get(position).getPoster_path();
 
         Glide.with(holder.itemView).load(url).into(holder.imgPoster);
-        holder.tvTitle.setText(dataList.get(position).getTitle());
-        holder.tvDesc.setText(dataList.get(position).getOverview().substring(0,66)+"...");
-        holder.tvReleaseDate.setText(dataList.get(position).getReleaseDate());
-        holder.tvRating.setText(dataList.get(position).getRating().toString());
+        holder.tvTitle.setText(mDataList.get(position).getTitle());
+        holder.tvDesc.setText(String.format("%s...", mDataList.get(position).getOverview().substring(0, 66)));
+        holder.tvReleaseDate.setText(mDataList.get(position).getReleaseDate());
+        holder.tvRating.setText(String.valueOf(mDataList.get(position).getRating()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Item Selected", Toast.LENGTH_LONG).show();
+                mClickListener.onItemClick(mDataList.get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return (dataList != null) ? dataList.size() : 0;
+        return (mDataList != null) ? mDataList.size() : 0;
     }
 
     public class MovieHolder extends RecyclerView.ViewHolder{
@@ -71,5 +73,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
             tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_movie_release_date);
             tvRating = (TextView) itemView.findViewById(R.id.tv_movie_rating);
         }
+    }
+
+    public interface ItemClickListener{
+        public void onItemClick(MoviesData moviesData);
     }
 }
