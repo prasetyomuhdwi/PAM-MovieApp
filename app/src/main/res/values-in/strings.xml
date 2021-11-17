@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MovieApps</string>
+
+    <string name="on_failure_connect">Tidak dapan menghubungi server</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_setting">Pengaturan</string>
+
+    <string name="content_desc">deskripsi_konten</string>
+    <string name="detail_desc">Sinopsis</string>
+    <string name="detail_title">Judul Film</string>
+    <string name="detail_rating">8.3</string>
+    <string name="detail_release">01 Januari 2021</string>
+    <string name="detail_genres">Action,Comedy,Adventure</string>
+
+    <string name="fragment_home_title">Film Populer</string>
+    <string name="fragment_setting_title">Pengaturan</string>
+
+    <string name="setting_language">Ubah Bahasa</string>
+    <string name="setting_dark_mode">Mengaktifkan Mode Malam</string>
+    <string name="setting_about_header">Tentang Developer</string>
+    <string name="setting_about_name">Muhammad Dwi Prasetyo</string>
+    <string name="setting_about_id">18.11.2365</string>
+
+    <string name="item_title">Judul Film</string>
+    <string name="item_desc">Deskripsi</string>
+    <string name="item_release">01 Januari 2021</string>
+    <string name="item_rating">8.5</string>
+</resources>

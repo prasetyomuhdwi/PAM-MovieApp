@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
 
@@ -32,14 +36,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
         return new MovieHolder(view);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.MovieHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull MovieHolder holder, @SuppressLint("RecyclerView") int position) {
         String url = mDataList.get(position).getPoster_path();
 
         String desc = mDataList.get(position).getOverview();
         String title = mDataList.get(position).getTitle();
 
         Glide.with(holder.itemView).load(url).into(holder.imgPoster);
+
         holder.tvTitle.setText(title);
         if (desc.length()>50 && title.length()<17) {
             holder.tvDesc.setText(String.format("%s...", desc.substring(0, 50)));
@@ -52,7 +58,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
             holder.tvTitle.setTextSize(18);
             holder.tvDesc.setText(String.format("%s...", desc));
         }
-        holder.tvReleaseDate.setText(mDataList.get(position).getReleaseDate());
+
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        String mDate = mDataList.get(position).getReleaseDate();
+        String releaseDate = null;
+        try {
+            Date dateObj = DateFor.parse(mDate);
+            DateFor = new SimpleDateFormat("dd MMMM yyyy");
+            releaseDate= DateFor.format(Objects.requireNonNull(dateObj));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mDate = ((releaseDate!=null) ? releaseDate : mDate);
+        holder.tvReleaseDate.setText(mDate);
+
         holder.tvRating.setText(String.valueOf(mDataList.get(position).getRating()));
         holder.itemView.setOnClickListener(v -> mClickListener.onItemClick(mDataList.get(position)));
     }

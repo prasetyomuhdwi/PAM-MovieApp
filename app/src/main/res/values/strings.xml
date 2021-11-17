@@ -4,7 +4,6 @@
     <string name="on_failure_connect">Can\'t reach server</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_upcoming">Upcoming</string>
     <string name="menu_setting">Setting</string>
 
     <string name="content_desc">content_desc</string>
@@ -12,10 +11,10 @@
     <string name="detail_title">Title</string>
     <string name="detail_rating">8.3</string>
     <string name="detail_release">01 January 2021</string>
+    <string name="detail_genres">Action,Comedy,Adventure</string>
 
     <string name="fragment_home_title">Popular Movie</string>
     <string name="fragment_setting_title">Setting</string>
-    <string name="fragment_upcoming_title">Upcoming Movie</string>
 
     <string name="setting_language">Change Language</string>
     <string name="setting_dark_mode">Enable Dark Mode</string>
@@ -27,5 +26,4 @@
     <string name="item_desc">Description</string>
     <string name="item_release">01 January 2021</string>
     <string name="item_rating">8.5</string>
-
 </resources>

@@ -43,13 +43,16 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_language"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/round_full_corner"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemTextColor="@drawable/item_selector"
         android:text="@string/setting_language"
+        android:textColor="@color/text_primary"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -88,27 +91,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/tv_aboutdev_name" />
-
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/round_full_corner"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/button">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/sw_dark_mode"
-            android:layout_width="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_dark_mode"
-            android:textColor="@color/white" />
-    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
