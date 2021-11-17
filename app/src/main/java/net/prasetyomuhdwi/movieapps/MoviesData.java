@@ -1,12 +1,12 @@
 package net.prasetyomuhdwi.movieapps;
 
 public class MoviesData {
-    private String title;
-    private String overview;
-    private String releaseDate;
-    private String poster_path;
-    private String backdrop_path;
-    private Double rating;
+    private final String title;
+    private final String overview;
+    private final String releaseDate;
+    private final String poster_path;
+    private final String backdrop_path;
+    private final Double rating;
 
     public MoviesData(String title, String overview, String releaseDate, String poster_path, String backdrop_path, Double rating) {
         this.title = title;

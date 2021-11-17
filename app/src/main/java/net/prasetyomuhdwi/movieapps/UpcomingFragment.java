@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SettingFragment extends Fragment {
 
-    public SettingFragment() {
+public class UpcomingFragment extends Fragment {
+
+    public UpcomingFragment() {
         // Required empty public constructor
     }
 
-    public static SettingFragment newInstance() {
-        return new SettingFragment();
+    public static UpcomingFragment newInstance() {
+        return new UpcomingFragment();
+
     }
 
     @Override
@@ -27,7 +29,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_upcoming, container, false);
 
 
         return view;

@@ -1,8 +1,8 @@
 package net.prasetyomuhdwi.movieapps;
 
-import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,24 +13,51 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListener {
 
     private ArrayList<MoviesData> moviesArrayList;
+    private static final String ARG_RESPONSE_DATA = "data";
+
+    private String mResponseData;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
+        return new HomeFragment();
+    }
+
+//    public static HomeFragment newInstance(String responseData) {
+//        HomeFragment fragment = new HomeFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_RESPONSE_DATA, responseData);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mResponseData = getArguments().getString(ARG_RESPONSE_DATA);
+//        }
     }
 
     @Override
@@ -38,19 +65,29 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        String url = "https://api.themoviedb.org/3/movie/550?api_key=434f297aa1bc200c813ea38732f514dd";
+        String url = "https://api.themoviedb.org/3/movie/popular?"+
+                "api_key=434f297aa1bc200c813ea38732f514dd&language=en-US&page=1";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Toast.makeText(view.getContext(),getResources().getString(R.string.on_failure_connect),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                final String responseData = Objects.requireNonNull(response.body()).string();
+            }
+        });
+//        Log.d("Check This Out", "buildDataMovie: "+responseData);
 
         buildDataMovie();
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run() {
-                initRecyclerView(view);
-            }
-        },300);
+        new Handler().postDelayed(() -> initRecyclerView(view),300);
         return view;
 
     }
@@ -99,7 +136,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
                 );
 
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.hide(requireActivity().getSupportFragmentManager().findFragmentByTag("home_fragment"));
+        transaction.hide(Objects.requireNonNull(requireActivity().getSupportFragmentManager().findFragmentByTag("home_fragment")));
         transaction.add(R.id.fragment_container,fragment);
         transaction.addToBackStack(null);
         transaction.commit();

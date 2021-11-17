@@ -20,16 +20,13 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Make delay before switch to HomeActivity
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Intent to switch to HomeActivity.
-                Intent intent=new Intent(MainActivity.this,
-                        HomeActivity.class);
+        new Handler().postDelayed(() -> {
+            // Intent to switch to HomeActivity.
+            Intent intent=new Intent(MainActivity.this,
+                    HomeActivity.class);
 
-                startActivity(intent);
-                finish();
-            }
+            startActivity(intent);
+            finish();
         }, SPLASH_SCREEN_TIME_OUT);
     }
 }

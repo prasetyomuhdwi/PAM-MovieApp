@@ -21,7 +21,6 @@ public class DetailFragment extends Fragment {
     private static final String ARG_BACKDROP_URL = "backdrop";
     private static final String ARG_RATING = "rating";
 
-    // TODO: Rename and change types of parameters
     private String mTitle;
     private String mDesc;
     private String mReleaseDate;

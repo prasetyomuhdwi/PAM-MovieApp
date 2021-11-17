@@ -1,16 +1,11 @@
 package net.prasetyomuhdwi.movieapps;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +14,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import okhttp3.OkHttpClient;
-
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
 
     private final ArrayList<MoviesData> mDataList;
-    private ItemClickListener mClickListener;
+    private final ItemClickListener mClickListener;
 
     public HomeAdapter(ArrayList<MoviesData> dataList,ItemClickListener clickListener) {
         this.mDataList = dataList;
@@ -48,12 +41,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
         holder.tvDesc.setText(String.format("%s...", mDataList.get(position).getOverview().substring(0, 66)));
         holder.tvReleaseDate.setText(mDataList.get(position).getReleaseDate());
         holder.tvRating.setText(String.valueOf(mDataList.get(position).getRating()));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickListener.onItemClick(mDataList.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> mClickListener.onItemClick(mDataList.get(position)));
     }
 
     @Override
@@ -61,7 +49,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
         return (mDataList != null) ? mDataList.size() : 0;
     }
 
-    public class MovieHolder extends RecyclerView.ViewHolder{
+    public static class MovieHolder extends RecyclerView.ViewHolder{
         ImageView imgPoster;
         TextView tvTitle,tvDesc,tvReleaseDate,tvRating;
 
@@ -76,6 +64,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
     }
 
     public interface ItemClickListener{
-        public void onItemClick(MoviesData moviesData);
+        void onItemClick(MoviesData moviesData);
     }
 }
