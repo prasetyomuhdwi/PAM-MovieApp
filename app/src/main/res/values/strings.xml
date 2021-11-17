@@ -11,7 +11,7 @@
     <string name="detail_desc">Overview</string>
     <string name="detail_title">Title</string>
     <string name="detail_rating">8.3</string>
-    <string name="detail_release">1 January 2021</string>
+    <string name="detail_release">01 January 2021</string>
 
     <string name="fragment_home_title">Popular Movie</string>
     <string name="fragment_setting_title">Setting</string>
@@ -22,5 +22,10 @@
     <string name="setting_about_header">About Developer</string>
     <string name="setting_about_name">Muhammad Dwi Prasetyo</string>
     <string name="setting_about_id">18.11.2365</string>
+
+    <string name="item_title">Title</string>
+    <string name="item_desc">Description</string>
+    <string name="item_release">01 January 2021</string>
+    <string name="item_rating">8.5</string>
 
 </resources>

@@ -36,9 +36,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
     public void onBindViewHolder(@NonNull HomeAdapter.MovieHolder holder, @SuppressLint("RecyclerView") int position) {
         String url = mDataList.get(position).getPoster_path();
 
+        String desc = mDataList.get(position).getOverview();
+        String title = mDataList.get(position).getTitle();
+
         Glide.with(holder.itemView).load(url).into(holder.imgPoster);
-        holder.tvTitle.setText(mDataList.get(position).getTitle());
-        holder.tvDesc.setText(String.format("%s...", mDataList.get(position).getOverview().substring(0, 66)));
+        holder.tvTitle.setText(title);
+        if (desc.length()>50 && title.length()<17) {
+            holder.tvDesc.setText(String.format("%s...", desc.substring(0, 50)));
+        }else if (desc.length()>50 && title.length()>17) {
+            holder.tvDesc.setText(String.format("%s...", desc.substring(0, 50)));
+            holder.tvTitle.setTextSize(14);
+       }else if (desc.length()<50 && title.length()>17) {
+            holder.tvDesc.setText(String.format("%s...", desc.substring(0, (desc.length() / 2))));
+        }else{
+            holder.tvTitle.setTextSize(18);
+            holder.tvDesc.setText(String.format("%s...", desc));
+        }
         holder.tvReleaseDate.setText(mDataList.get(position).getReleaseDate());
         holder.tvRating.setText(String.valueOf(mDataList.get(position).getRating()));
         holder.itemView.setOnClickListener(v -> mClickListener.onItemClick(mDataList.get(position)));
