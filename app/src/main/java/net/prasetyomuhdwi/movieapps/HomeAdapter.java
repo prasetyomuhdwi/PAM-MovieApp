@@ -59,13 +59,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
             holder.tvDesc.setText(String.format("%s...", desc));
         }
 
-        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd"); //2021-Nov-02
         String mDate = mDataList.get(position).getReleaseDate();
         String releaseDate = null;
         try {
             Date dateObj = DateFor.parse(mDate);
             DateFor = new SimpleDateFormat("dd MMMM yyyy");
-            releaseDate= DateFor.format(Objects.requireNonNull(dateObj));
+            releaseDate = DateFor.format(Objects.requireNonNull(dateObj));
         } catch (ParseException e) {
             e.printStackTrace();
         }

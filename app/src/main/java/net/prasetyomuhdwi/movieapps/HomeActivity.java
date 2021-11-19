@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         // hide ActionBar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        String local = String.valueOf(Locale.getDefault().toLanguageTag());
+        String local = String.valueOf(Locale.getDefault().toLanguageTag()); // en-EN
         String[] url = {"https://api.themoviedb.org/3/movie/popular?api_key=434f297aa1bc200c813ea38732f514dd&language="+local+"&page=1",
                 "https://api.themoviedb.org/3/genre/movie/list?api_key=434f297aa1bc200c813ea38732f514dd&language="+local};
 

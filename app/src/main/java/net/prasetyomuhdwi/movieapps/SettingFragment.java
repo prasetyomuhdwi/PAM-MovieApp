@@ -14,6 +14,7 @@ import android.widget.Button;
 public class SettingFragment extends Fragment {
 
     public static SettingFragment newInstance() {
+
         return new SettingFragment();
     }
 
