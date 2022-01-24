@@ -26,4 +26,17 @@
     <string name="item_desc">Description</string>
     <string name="item_release">01 January 2021</string>
     <string name="item_rating">8.5</string>
+
+    <string name="title_login">Login</string>
+    <string name="title_register">Registration</string>
+
+    <string name="label_email">Email Address</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="label_avatar">Choose image</string>
+    <string name="label_fullname">Fullname</string>
+
+    <string name="btn_login">Sign In</string>
+    <string name="btn_register">Sign Up</string>
+
 </resources>

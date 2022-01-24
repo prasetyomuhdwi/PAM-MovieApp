@@ -27,4 +27,17 @@
     <string name="item_desc">Deskripsi</string>
     <string name="item_release">01 Januari 2021</string>
     <string name="item_rating">8.5</string>
+
+    <string name="title_login">Masuk</string>
+    <string name="title_register">Registrasi</string>
+
+    <string name="label_email">Alamat Email</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Kata Sandi</string>
+    <string name="label_avatar">Pilih Gambar</string>
+    <string name="label_fullname">Nama Lengkap</string>
+
+    <string name="btn_login">Masuk</string>
+    <string name="btn_register">Daftar</string>
+
 </resources>
