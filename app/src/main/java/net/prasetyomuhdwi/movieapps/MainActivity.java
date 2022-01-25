@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Make delay before switch to HomeActivity
         new Handler().postDelayed(() -> {
-            // Intent to switch to HomeActivity.
+            // Intent to switch to LoginActivity.
             Intent intent=new Intent(MainActivity.this,
-                    HomeActivity.class);
+                    LoginActivity.class);
 
             startActivity(intent);
             finish();

@@ -40,4 +40,12 @@
     <string name="btn_login">Masuk</string>
     <string name="btn_register">Daftar</string>
 
+    <string name="btn_link_login">Sudah punya akun? Masuk disini</string>
+    <string name="btn_link_register">Belum punya akun? Daftar disini</string>
+
+    <string name="error_msg_empty">Data Masih kosong</string>
+    <string name="error_msg_email">Email yang anda masukan tidak valid</string>
+    <string name="error_msg_password">Password yang anda masukan tidak valid</string>
+    <string name="error_msg_username">Username yang anda masukan tidak valid</string>
+    <string name="error_msg_fullname">Nama Lengkap yang anda masukan tidak valid</string>
 </resources>

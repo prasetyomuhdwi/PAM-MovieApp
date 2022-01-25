@@ -39,4 +39,15 @@
     <string name="btn_login">Sign In</string>
     <string name="btn_register">Sign Up</string>
 
+    <string name="btn_link_login">Already have an account? Login here</string>
+    <string name="btn_link_register">Don\'t have an account yet? Register here</string>
+
+    <string name="error_msg_empty">Data is Empty</string>
+    <string name="error_msg_email">Emails you enter are invalid</string>
+    <string name="error_msg_password">Password you enter are invalid</string>
+    <string name="error_msg_username">Username you enter are invalid</string>
+    <string name="error_msg_fullname">Fullname you enter are invalid</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
