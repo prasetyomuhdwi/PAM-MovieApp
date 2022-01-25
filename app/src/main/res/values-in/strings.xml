@@ -39,6 +39,9 @@
 
     <string name="btn_login">Masuk</string>
     <string name="btn_register">Daftar</string>
+    <string name="btn_delete_user">Hapus Akun</string>
+    <string name="btn_edit_user">Edit Akun</string>
+    <string name="btn_logout">Logout</string>
 
     <string name="btn_link_login">Sudah punya akun? Masuk disini</string>
     <string name="btn_link_register">Belum punya akun? Daftar disini</string>
