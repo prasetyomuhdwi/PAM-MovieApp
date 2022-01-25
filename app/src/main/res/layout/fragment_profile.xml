@@ -25,7 +25,6 @@
             android:id="@+id/tv_profile_label_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="@string/label_username"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".RegisterActivity">
+    tools:context=".EditUserFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +23,6 @@
             android:id="@+id/tv_label_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="@string/label_username"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -34,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/input_register_username"
+            android:id="@+id/input_edit_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -63,10 +60,10 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_register_username" />
+            app:layout_constraintTop_toBottomOf="@+id/input_edit_username" />
 
         <EditText
-            android:id="@+id/input_register_fullname"
+            android:id="@+id/input_edit_fullname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -95,10 +92,10 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_register_fullname" />
+            app:layout_constraintTop_toBottomOf="@+id/input_edit_fullname" />
 
         <EditText
-            android:id="@+id/input_register_email"
+            android:id="@+id/input_edit_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -128,7 +125,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_register_email" />
+            app:layout_constraintTop_toBottomOf="@+id/input_edit_email" />
 
         <EditText
             android:id="@+id/input_register_password"
@@ -152,14 +149,14 @@
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/round_full_corner"
             android:minHeight="48dp"
             android:padding="2dp"
-            android:text="@string/btn_register"
+            android:text="@string/btn_edit_user"
             android:textColor="@color/text_primary"
             android:textSize="20sp"
             app:itemIconTint="@drawable/item_selector"
@@ -167,25 +164,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_register_password" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_link_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/background_primary"
-            android:minHeight="48dp"
-            android:padding="2dp"
-            android:text="@string/btn_link_login"
-            android:textColor="@color/text_primary"
-            android:textSize="12sp"
-            app:itemIconTint="@drawable/item_selector"
-            app:itemTextColor="@drawable/item_selector"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
