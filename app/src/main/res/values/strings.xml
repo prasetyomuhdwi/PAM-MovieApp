@@ -8,6 +8,7 @@
     <string name="delete_success">Delete Account Success</string>
 
     <string name="loading">Loading ...</string>
+    <string name="logout">Logout Success</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_setting">Setting</string>

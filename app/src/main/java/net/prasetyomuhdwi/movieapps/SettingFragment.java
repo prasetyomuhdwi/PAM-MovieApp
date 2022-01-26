@@ -14,10 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class SettingFragment extends Fragment {
+
+    DbHelper dbHelper;
+    private ArrayList<User> listUsers = new ArrayList<>();
 
     public static SettingFragment newInstance() {
 
@@ -59,6 +65,17 @@ public class SettingFragment extends Fragment {
             }
 
             return true;
+        });
+
+        Button btnLogout = view.findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(v->{
+            dbHelper = new DbHelper(requireActivity());
+            listUsers = dbHelper.getAllUsers();
+            dbHelper.deleteUser(listUsers.get(0).getId());
+            Toast.makeText(requireActivity(), getResources().getString(R.string.logout), android.widget.Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(requireActivity(),
+                    LoginActivity.class);
+            startActivity(intent);
         });
 
         Button btnLanguage = view.findViewById(R.id.btn_language);

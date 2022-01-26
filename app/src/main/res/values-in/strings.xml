@@ -9,6 +9,7 @@
     <string name="delete_success">Hapus Akun Berhasil</string>
 
     <string name="loading">Memuat ...</string>
+    <string name="logout">Berhasil keluar dari Akun</string>
 
     <string name="menu_home">Beranda</string>
     <string name="menu_setting">Pengaturan</string>
