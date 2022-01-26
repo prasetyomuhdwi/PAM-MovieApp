@@ -1,9 +1,14 @@
 package net.prasetyomuhdwi.movieapps;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,12 +18,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListener {
 
@@ -60,13 +72,39 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        buildDataMovie(mDataMovie,mDataGenre);
-        new Handler().postDelayed(() -> initRecyclerView(view),300);
-        return view;
+        String local = String.valueOf(Locale.getDefault().toLanguageTag()); // en-EN
+        String[] url = {"https://api.themoviedb.org/3/movie/popular?api_key=434f297aa1bc200c813ea38732f514dd&language="+local+"&page=1",
+                "https://api.themoviedb.org/3/genre/movie/list?api_key=434f297aa1bc200c813ea38732f514dd&language="+local};
 
+        new HomeTask().execute(url);
+        return view;
     }
 
-    public void setData(String jsonMovieString,String jsonGenreString) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        NavController navController = Navigation.findNavController(view);
+
+        BottomNavigationView bottomNavigation = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()) {
+                case R.id.nav_profile:
+                    navController.navigate(R.id.action_homeFragment_to_profileFragment);
+                    break;
+                case R.id.nav_setting:
+                    navController.navigate(R.id.action_homeFragment_to_settingFragment);
+                    break;
+                default:
+                    return false;
+            }
+
+            return true;
+        });
+    }
+
+    public void setData(String jsonMovieString, String jsonGenreString) {
         try {
             JSONObject genresObject = new JSONObject(jsonGenreString);
             JSONArray genresArr = genresObject.getJSONArray("genres");
@@ -112,7 +150,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
 
     private void initRecyclerView(View view){
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview_home);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         HomeAdapter adapter = new HomeAdapter(moviesArrayList,this);
         recyclerView.setAdapter(adapter);
@@ -139,5 +177,40 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
 
     public void buildDataMovie(String moviesData,String genreData){
         setData(moviesData,genreData);
+    }
+
+    private class HomeTask extends AsyncTask<String, Void, String[]> {
+
+        @Override
+        protected String[] doInBackground(String... url) {
+            OkHttpClient client = new OkHttpClient();
+
+            // Movies Data
+            Request request = new Request.Builder().url(String.valueOf(url[0])).build();
+            String moviesData = null;
+            try (Response response = client.newCall(request).execute()) {
+                moviesData = Objects.requireNonNull(response.body()).string();
+            }catch (Exception e){e.printStackTrace();}
+
+            // Data Genres List
+            request = new Request.Builder().url(String.valueOf(url[1])).build();
+            String genreData = null;
+            try (Response response = client.newCall(request).execute()) {
+                genreData = Objects.requireNonNull(response.body()).string();
+            }catch (Exception e){e.printStackTrace();}
+
+            if (moviesData != null && genreData != null){
+                return new String[]{moviesData,genreData};
+            }else{
+                return new String[]{getResources().getString(R.string.on_failure_connect)};
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String[] responseData) {
+            super.onPostExecute(responseData);
+            buildDataMovie(responseData[0],responseData[1]);
+            new Handler().postDelayed(() -> initRecyclerView(requireView()),300);
+        }
     }
 }

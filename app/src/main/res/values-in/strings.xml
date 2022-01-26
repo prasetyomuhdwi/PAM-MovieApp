@@ -6,6 +6,7 @@
 
     <string name="menu_home">Beranda</string>
     <string name="menu_setting">Pengaturan</string>
+    <string name="menu_profile">Akun</string>
 
     <string name="content_desc">deskripsi_konten</string>
     <string name="detail_desc">Sinopsis</string>
