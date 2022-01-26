@@ -2,6 +2,12 @@
     <string name="app_name">MovieApps</string>
 
     <string name="on_failure_connect">Can\'t reach server</string>
+    <string name="login_success">Login Success</string>
+    <string name="register_success">Registration Success</string>
+    <string name="edit_success">Update Account Success</string>
+    <string name="delete_success">Delete Account Success</string>
+
+    <string name="loading">Loading ...</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_setting">Setting</string>

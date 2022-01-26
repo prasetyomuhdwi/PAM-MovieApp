@@ -3,7 +3,11 @@ package net.prasetyomuhdwi.movieapps;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,13 +72,13 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(ARG_TITLE);
-            mDesc = getArguments().getString(ARG_DESC);
-            mReleaseDate = getArguments().getString(ARG_RELEASE_DATE);
-            mRating = getArguments().getString(ARG_RATING);
-            mPosterUrl = getArguments().getString(ARG_POSTER_URL);
-            mBackdropUrl = getArguments().getString(ARG_BACKDROP_URL);
-            mGenres = getArguments().getStringArray(Arrays.toString(ARG_GENRES));
+            mTitle = getArguments().getString("title");
+            mDesc = getArguments().getString("overview");
+            mReleaseDate = getArguments().getString("releaseDate");
+            mRating = getArguments().getString("rating");
+            mPosterUrl = getArguments().getString("poster_path");
+            mBackdropUrl = getArguments().getString("backdrop_path");
+            mGenres = getArguments().getStringArray("genres");
         }
     }
 
@@ -115,5 +120,31 @@ public class DetailFragment extends Fragment {
         TextView tvRating = (TextView) view.findViewById(R.id.tv_detail_rating);
         tvRating.setText(mRating);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        NavController navController = Navigation.findNavController(view);
+
+        BottomNavigationView bottomNavigation = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    navController.navigate(R.id.action_detailFragment_to_homeFragment);
+                    break;
+                case R.id.nav_setting:
+                    navController.navigate(R.id.action_detailFragment_to_settingFragment);
+                    break;
+                case R.id.nav_profile:
+                    navController.navigate(R.id.action_detailFragment_to_profileFragment);
+                    break;
+                default:
+                    return false;
+            }
+
+            return true;
+        });
     }
 }

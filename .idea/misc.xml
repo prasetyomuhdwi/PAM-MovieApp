@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_directory_movie.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/fragment_edit_user.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/layout/fragment_edit_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.11865942028985507" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />

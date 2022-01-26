@@ -6,14 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,21 +156,19 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
 
     @Override
     public void onItemClick(MoviesData moviesData) {
-        Fragment fragment = DetailFragment.newInstance(
-                moviesData.getTitle(),
-                moviesData.getOverview(),
-                moviesData.getReleaseDate(),
-                String.valueOf(moviesData.getRating()),
-                moviesData.getPoster_path(),
-                moviesData.getBackdrop_path(),
-                moviesData.getGenres()
-        );
 
-        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.hide(Objects.requireNonNull(requireActivity().getSupportFragmentManager().findFragmentByTag("home_fragment")));
-        transaction.add(R.id.fragment_container,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        Bundle dataMovie = new Bundle();
+        dataMovie.putString("title", moviesData.getTitle());
+        dataMovie.putString("overview", moviesData.getOverview());
+        dataMovie.putString("releaseDate", moviesData.getReleaseDate());
+        dataMovie.putString("rating", String.valueOf(moviesData.getRating()));
+        dataMovie.putString("poster_path", moviesData.getPoster_path());
+        dataMovie.putString("backdrop_path", moviesData.getBackdrop_path());
+        dataMovie.putStringArray("genres", moviesData.getGenres());
+
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.action_homeFragment_to_detailFragment,dataMovie);
+
     }
 
     public void buildDataMovie(String moviesData,String genreData){

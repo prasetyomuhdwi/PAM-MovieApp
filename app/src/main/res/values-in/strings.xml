@@ -3,6 +3,12 @@
     <string name="app_name">MovieApps</string>
 
     <string name="on_failure_connect">Tidak dapan menghubungi server</string>
+    <string name="login_success">Login Berhasil</string>
+    <string name="register_success">Registrasi Berhasil</string>
+    <string name="edit_success">Ubah Akun Berhasil</string>
+    <string name="delete_success">Hapus Akun Berhasil</string>
+
+    <string name="loading">Memuat ...</string>
 
     <string name="menu_home">Beranda</string>
     <string name="menu_setting">Pengaturan</string>

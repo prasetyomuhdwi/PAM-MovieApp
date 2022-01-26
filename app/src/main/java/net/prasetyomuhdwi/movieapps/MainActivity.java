@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Make delay before switch to HomeActivity
         new Handler().postDelayed(() -> {
-            // Intent to switch to LoginActivity.
-            Intent intent=new Intent(MainActivity.this,
-                    LoginActivity.class);
+                // Intent to switch to LoginActivity.
+                Intent intent = new Intent(MainActivity.this,
+                        LoginActivity.class);
 
-            startActivity(intent);
-            finish();
+                startActivity(intent);
+                finish();
         }, SPLASH_SCREEN_TIME_OUT);
     }
 }

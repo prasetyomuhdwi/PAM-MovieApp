@@ -25,7 +25,7 @@ public class Validation {
     }
 
     public final static boolean isValidFullname(CharSequence target) {
-        String regex = "^[a-zA-Z]+$";
+        String regex = "^[a-zA-Z ]+$";
         Pattern p = Pattern.compile(regex);
         return !TextUtils.isEmpty(target) && p.matcher(target).matches();
     }
