@@ -58,6 +58,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_changeTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/round_full_corner"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemTextColor="@drawable/item_selector"
+        android:text="Enable Dark Mode"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btn_language" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -69,7 +83,7 @@
         android:textColor="@color/text_primary"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/btn_language" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_changeTheme" />
 
     <TextView
         android:id="@+id/tv_aboutdev_header"

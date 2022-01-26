@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,14 +20,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> implements Filterable {
 
-    private final ArrayList<MoviesData> mDataList;
+    private ArrayList<MoviesData> mDataList;
+    private ArrayList<MoviesData> mDataFullList;
     private final ItemClickListener mClickListener;
 
     public HomeAdapter(ArrayList<MoviesData> dataList,ItemClickListener clickListener) {
         this.mDataList = dataList;
         this.mClickListener = clickListener;
+        mDataFullList = new ArrayList<>(dataList);
     }
 
     @NonNull
@@ -87,13 +91,44 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieHolder> {
 
         public MovieHolder(@NonNull View itemView){
             super(itemView);
-            imgPoster = (ImageView) itemView.findViewById(R.id.img_movie_poster);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
-            tvDesc = (TextView) itemView.findViewById(R.id.tv_movie_desc);
-            tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_movie_release_date);
-            tvRating = (TextView) itemView.findViewById(R.id.tv_movie_rating);
+            imgPoster = itemView.findViewById(R.id.img_movie_poster);
+            tvTitle = itemView.findViewById(R.id.tv_movie_title);
+            tvDesc = itemView.findViewById(R.id.tv_movie_desc);
+            tvReleaseDate = itemView.findViewById(R.id.tv_movie_release_date);
+            tvRating = itemView.findViewById(R.id.tv_movie_rating);
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return Searched_Filter;
+    }
+
+    private Filter Searched_Filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<MoviesData> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mDataFullList);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (MoviesData item : mDataFullList) {
+                    if (item.getTitle().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mDataList.clear();
+            mDataList.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public interface ItemClickListener{
         void onItemClick(MoviesData moviesData);

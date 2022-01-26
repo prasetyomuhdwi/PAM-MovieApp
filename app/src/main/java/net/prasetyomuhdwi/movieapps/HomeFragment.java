@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,9 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.SearchView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,6 +39,7 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListener {
 
+    private HomeAdapter adapter;
     private ArrayList<MoviesData> moviesArrayList;
     private static final String ARG_DATA_GENRE = "genre";
     private static final String ARG_DATA_MOVIE = "movie";
@@ -150,7 +158,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        HomeAdapter adapter = new HomeAdapter(moviesArrayList,this);
+        adapter = new HomeAdapter(moviesArrayList,this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -173,6 +181,28 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
 
     public void buildDataMovie(String moviesData,String genreData){
         setData(moviesData,genreData);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("newText1",query);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("newText",newText);
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     private class HomeTask extends AsyncTask<String, Void, String[]> {

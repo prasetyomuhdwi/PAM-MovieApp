@@ -1,15 +1,20 @@
 package net.prasetyomuhdwi.movieapps;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +70,49 @@ public class SettingFragment extends Fragment {
             }
 
             return true;
+        });
+
+        Button btnTheme = view.findViewById(R.id.btn_changeTheme);
+        SharedPreferences sharedPreferences
+                = getActivity().getSharedPreferences(
+                "sharedPrefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor
+                = sharedPreferences.edit();
+        final boolean isDarkModeOn = sharedPreferences
+                .getBoolean("isDarkModeOn", false);
+
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            btnTheme.setText("Disable Dark Mode");
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            btnTheme.setText("Enable Dark Mode");
+        }
+        btnTheme.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                if (isDarkModeOn) {
+
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                    editor.putBoolean("isDarkModeOn", false);
+                    editor.apply();
+
+                    btnTheme.setText("Enable Dark Mode");
+                }
+                else {
+
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                    editor.putBoolean("isDarkModeOn", true);
+                    editor.apply();
+
+                    btnTheme.setText("Disable Dark Mode");
+                }
+            }
         });
 
         Button btnLogout = view.findViewById(R.id.btn_logout);
