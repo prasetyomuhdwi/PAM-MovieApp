@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                         listUsers = dbHelper.getAllUsers();
                         if (listUsers.isEmpty()) {
                             dbHelper.deleteUser(listUsers.get(0).getId());
+                            return new String[]{getResources().getString(R.string.on_failure_connect),null};
                         }
                     }
                 }
