@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         protected void onPostExecute(String[] responseData) {
             super.onPostExecute(responseData);
             buildDataMovie(responseData[0],responseData[1]);
-            if(responseData.length > 0){
+            if(responseData.length > 1){
                 new Handler().postDelayed(() -> initRecyclerView(requireView()),300);
             }
         }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -121,15 +122,23 @@ public class LoginActivity extends AppCompatActivity {
                     dataUser = String.valueOf(objData);
 
                     dbHelper = new DbHelper(LoginActivity.this);
-                    listUsers = dbHelper.getAllUsers();
-                    if(listUsers.isEmpty()) {
-                        dbHelper.addUserDetail(
-                            objData.getInt("id"),
-                            objData.getString("username"),
-                            objData.getString("fullname"),
-                            objData.getString("email"),
-                            password
-                        );
+
+                    if(dataUser != "null" || dataUser != null) {
+                        listUsers = dbHelper.getAllUsers();
+                        if (listUsers.isEmpty()) {
+                            dbHelper.addUserDetail(
+                                    objData.getInt("id"),
+                                    objData.getString("username"),
+                                    objData.getString("fullname"),
+                                    objData.getString("email"),
+                                    password
+                            );
+                        }
+                    }else{
+                        listUsers = dbHelper.getAllUsers();
+                        if (listUsers.isEmpty()) {
+                            dbHelper.deleteUser(listUsers.get(0).getId());
+                        }
                     }
                 }
             }catch (Exception e){e.printStackTrace();}
@@ -155,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(responseData);
             pDialog.dismiss();
             if(!responseData[0].isEmpty()) {
-                if (responseData[1].isEmpty()) {
+                if (responseData[1] == null || String.valueOf(responseData[1]) == "null") {
                     Toast.makeText(LoginActivity.this, responseData[0], Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, responseData[0], Toast.LENGTH_SHORT).show();

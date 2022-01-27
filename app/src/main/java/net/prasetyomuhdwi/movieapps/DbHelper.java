@@ -79,8 +79,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void deleteUser(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_STD, KEY_ID + " = ?",
-                new String[]{String.valueOf(id)});
+        db.delete(TABLE_STD, KEY_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
     }
 
     public int updateUser(int id, String username, String fullname, String email, String password) {
