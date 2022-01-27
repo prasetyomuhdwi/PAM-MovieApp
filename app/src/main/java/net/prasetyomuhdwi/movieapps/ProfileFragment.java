@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -65,7 +66,19 @@ public class ProfileFragment extends Fragment {
             fullname.setText(listUsers.get(0).getFullname());
             email.setText(listUsers.get(0).getEmail());
         }
+
+        setHasOptionsMenu(false);
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().hide();
+        }
     }
 
     @Override
@@ -146,7 +159,7 @@ public class ProfileFragment extends Fragment {
                     dataUser = String.valueOf(objData);
 
                     dbHelper = new DbHelper(requireActivity());
-                    dbHelper.deleteUser(Integer.parseInt(id));
+                    dbHelper.deleteUser(Integer.valueOf(id));
                 }
             }catch (Exception e){e.printStackTrace();}
 
@@ -175,7 +188,7 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(requireActivity(), responseData[0], Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(requireActivity(), responseData[0], Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(requireActivity(),
+                Intent intent = new Intent(requireContext(),
                         LoginActivity.class);
                 startActivity(intent);
             }

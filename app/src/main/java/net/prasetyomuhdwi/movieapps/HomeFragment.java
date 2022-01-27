@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,8 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.SearchView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -70,6 +69,15 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().show();
+        }
+    }
+
+    @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
@@ -81,6 +89,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         String local = String.valueOf(Locale.getDefault().toLanguageTag()); // en-EN
         String[] url = {"https://api.themoviedb.org/3/movie/popular?api_key=434f297aa1bc200c813ea38732f514dd&language="+local+"&page=1",
                 "https://api.themoviedb.org/3/genre/movie/list?api_key=434f297aa1bc200c813ea38732f514dd&language="+local};
+
+        setHasOptionsMenu(true);
 
         new HomeTask().execute(url);
         return view;
@@ -189,7 +199,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         inflater.inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -236,7 +245,9 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         protected void onPostExecute(String[] responseData) {
             super.onPostExecute(responseData);
             buildDataMovie(responseData[0],responseData[1]);
-            new Handler().postDelayed(() -> initRecyclerView(requireView()),300);
+            if(responseData.length > 0){
+                new Handler().postDelayed(() -> initRecyclerView(requireView()),300);
+            }
         }
     }
 }
